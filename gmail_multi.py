@@ -51,9 +51,9 @@ def clear_screen():
 
 def select_account():
     print(Fore.YELLOW + "\nSelect an account:")
-    print("1. Ranger Smyth")
-    print("2. David Keane")
-    print("3. Proxy Busterburg")
+    print("1. Ranger")
+    print("2. David")
+    print("3. Proxy")
     print("0. Exit" + Style.RESET_ALL)
     while True:
         choice = input(Fore.YELLOW + "Enter your choice: " + Style.RESET_ALL)
