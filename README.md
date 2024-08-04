@@ -1,4 +1,3 @@
-
 # Gmail Multi-Account CLI
 
 ![Python](https://img.shields.io/badge/Python-3.7%2B-blue) ![License](https://img.shields.io/badge/License-MIT-green) ![Version](https://img.shields.io/badge/Version-2.0-orange)
@@ -12,7 +11,7 @@
 - [Features](#features)
 - [Requirements](#requirements)
 - [Installation](#installation)
-- [Setting Up Gmail &#34;Less Secure App Access&#34;](#setting-up-gmail-less-secure-app-access)
+- [Setting Up Gmail &#34;Secure App Access&#34;](#setting-up-gmail-less-secure-app-access)
 - [Usage](#usage)
 - [Configuration](#configuration)
 - [Troubleshooting](#troubleshooting)
