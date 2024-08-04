@@ -1,6 +1,37 @@
                     GNU GENERAL PUBLIC LICENSE
                        Version 3, 29 June 2007
 
+                           gmail_multi.py
+                  A Gmail Google cli-python script
+                   Copyright (C) 2024 David Keane
+                        (Use it as you wish)
+                   Email rangersmyth.74@gmail.com
+
+
+                                                     ,#%%#/,.                       
+                                *#*      .,/(#/*.                
+                *(//////////////##*,.           .*(#*             
+                (#,                  .,/##(,.       ,%#,          
+                  ,(/,                      .*/(/,.   .##,        
+                    .*//*../#(((/*,.            .,*/*. /#,       
+                          ,#@&@@@&(/*(%%(,            ,%%*        
+                          ,#@@@@@@@@@@@@@@@@%/,          *(,      
+                        .(@@%(/(@@@@@@@@@@@@@@@&(*        ,(/    
+                      ./%&@@@@@@@@@@@&&@@&#*./@@@@@%*       .(/  
+                      ,/*,.   ....      ,##,..(@@@@@(.         .(,
+                        ,/,            ./#*,/#@@@@@%#((//******/#(
+                        ,##**,         ,#(.  .(@@@*               
+                        ,/.            ((,  .,/%@#                
+                        *(*,,,..     .(&%%&&%(*. (/.              
+                            ,(/*(*#&@@@%/,       ,%#.             
+                            ,( .%@@@&*       ./#/.                
+                            *#((#&&/     ./(/.                    
+                          .(&##%#(.  .(#/.                       
+                          ,#&@#.  ,//%(,                          
+                        /%%/      .,.                            
+                        .(%*                                      
+
+
  Copyright (C) 2007 Free Software Foundation, Inc. <https://fsf.org/>
  Everyone is permitted to copy and distribute verbatim copies
  of this license document, but changing it is not allowed.
