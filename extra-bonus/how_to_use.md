@@ -1,3 +1,5 @@
+# Instructions for using this script in the terminal.
+
 **Making the Script Executable and Adding it to the PATH**
 
 Here's how to make your script easily runnable from the terminal:
