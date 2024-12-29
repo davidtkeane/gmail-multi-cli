@@ -1,5 +1,13 @@
 #!/usr/bin/env python3
 
+# Created by Ranger (Dec 2024)
+# Title: Gmail Email Client v1.0 for Python and CLI
+# Version: 2.0
+# This version of the gmail script is altered by having your user and pass inside the script.
+# This script 
+
+
+
 import os
 import smtplib
 import imaplib
@@ -10,38 +18,33 @@ from time import sleep
 from email.header import decode_header
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from dotenv import load_dotenv
+
 from colorama import Fore, Style, init
 
 # Initialize colorama
 init(autoreset=True)
 
-# Load environment variables from .env file
-load_dotenv()
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-# Get email user and password from environment variables
-EMAIL_ACCOUNTS = {
-    '1': {
-        'user': os.getenv('EMAIL_USER_Bob'),
-        'pass': os.getenv('EMAIL_PASS_Bob')
-    },
-    '2': {
-        'user': os.getenv('EMAIL_USER_Man'),
-        'pass': os.getenv('EMAIL_PASS_Man')
-    },
-    '3': {
-        'user': os.getenv('EMAIL_USER_Linky'),
-        'pass': os.getenv('EMAIL_PASS_Linky')
-    }
-}
-
 # Gmail Email Credentials - Google Less Secure App Passwords
 # Go here to get yours @ https://myaccount.google.com/apppasswords
 
-
+EMAIL_ACCOUNTS = { # directly added to the dict.
+    '1': {
+        'user': 'Bob',   # Example - REPLACE WITH YOUR ACTUAL CREDENTIALS
+        'pass': 'add-password-here'      # Example - REPLACE WITH YOUR ACTUAL PASSWORD
+    },
+    '2': {
+        'user': 'Man', # Example - REPLACE WITH YOUR ACTUAL CREDENTIALS
+        'pass': 'add-password-here'      # Example - REPLACE WITH YOUR ACTUAL PASSWORD
+    },
+    '3': {
+        'user': 'Linky', # Example - REPLACE WITH YOUR ACTUAL CREDENTIALS
+        'pass': 'add-password-here'      # Example - REPLACE WITH YOUR ACTUAL PASSWORD
+    }
+}
 def print_ascii_gmail2():
     print(r"""
 ..........................................................................................
@@ -87,9 +90,9 @@ def clear_screen():
 def select_account():
     print_ascii_gmail2()
     print(Fore.YELLOW + "\nSelect an account:")
-    print("1. Bob")
-    print("2. Man")
-    print("3. Linky")
+    print("1. Ranger Smyth")
+    print("2. David Keane")
+    print("3. Proxy Busterburg")
     print("0. Exit" + Style.RESET_ALL)
     while True:
         choice = input(Fore.YELLOW + "Enter your choice: " + Style.RESET_ALL)

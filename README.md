@@ -126,20 +126,39 @@ Follow the on-screen prompts to:
 
 Create a `.env` file in the project root with your Gmail account credentials:
 
-The app passwrod is 16  letter in lenght with spaces between every 4 lettes, example fejy lpue anye pjeb
+The app password is 16  letter in length with spaces between every 4 letters, example fejylpueanyepjeb
 
-So to add the password use this EMAIL_PASS_TheDude=fejy lpue anye pjeb and this format works.
+So to add the password like this EMAIL_PASS_TheDude=fejylpueanyepjeb and this format works.
 
-```
-EMAIL_USER_TheDude=your.email@gmail.com
-EMAIL_PASS_TheDude=app_password
+You will need to change you details in 
+   1. The .env file see below for the format.
+      (See a few lines below) 
+   2. You will need to also change your names in the gmail_multi.py @ Line 87 'def select_account():' 
+      (See a few lines below) 
 
-EMAIL_USER_Man=another.email@gmail.com
-EMAIL_PASS_Man=app_password
+1. The .env file
 
-EMAIL_USER_SpaceMan=third.email@gmail.com
-EMAIL_PASS_SpaceMan=app_password
-```
+   ```bash
+   EMAIL_USER_TheDude=your.email@gmail.com
+   EMAIL_PASS_TheDude=app_password
+
+   EMAIL_USER_Man=another.email@gmail.com
+   EMAIL_PASS_Man=app_password
+
+   EMAIL_USER_SpaceMan=third.email@gmail.com
+   EMAIL_PASS_SpaceMan=app_password
+   ```
+2. gmail_multi.py
+
+   ```bash
+   def select_account():
+      print_ascii_gmail2()
+      print(Fore.YELLOW + "\nSelect an account:")
+      print("1. Bob")
+      print("2. Man")
+      print("3. Linky")
+      print("0. Exit" + Style.RESET_ALL)
+   ```
 
 Replace the email addresses and passwords with your actual Gmail credentials.
 
