@@ -1,10 +1,29 @@
 # Gmail Multi-Account CLI
 
-![Python](https://img.shields.io/badge/Python-3.7%2B-blue) ![License](https://img.shields.io/badge/License-MIT-green) ![Version](https://img.shields.io/badge/Version-2.0-orange)
 
-![Gmail Multi-Account CLI](https://img.shields.io/badge/Gmail-Multi--Account%20CLI-green?logo=gmail&logoColor=white&labelColor=EA4335)
 
 # A powerful command-line interface for managing multiple Gmail accounts, built with Python.
+
+
+[![Gmail Multi-Account CLI](https://img.shields.io/badge/Gmail-Multi--Account%20CLI-green?logo=gmail&logoColor=white&labelColor=EA4335)](https://github.com/davidtkeane/gmail-multi-cli)
+[![Gmail CLI](https://img.shields.io/badge/Gmail-CLI-red?style=flat&logo=gmail&logoColor=white&labelColor=gray)](https://github.com/davidtkeane/gmail-multi-cli)
+[![Gmail Python CLI](https://img.shields.io/badge/Gmail-Python%20CLI-blue?style=flat&logo=gmail&logoColor=white&labelColor=red)](https://github.com/davidtkeane/gmail-multi-cli)
+
+![GitHub last commit](https://img.shields.io/github/last-commit/davidtkeane/Sleep-CLI?style=flat-square)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/w/davidtkeane/Sleep-CLI?authorFilter=davidtkeane)
+![GitHub issues](https://img.shields.io/github/issues-raw/davidtkeane/Sleep-CLI?style=flat-square)
+![GitHub Sponsors](https://img.shields.io/github/sponsors/davidtkeane)
+
+![Version](https://img.shields.io/badge/Version-2.0-orange)
+![Python](https://img.shields.io/badge/Python-3.7%2B-blue)  
+![License](https://img.shields.io/badge/License-MIT-green)
+
+## Other Scripts from me.
+
+[![Sleep CLI](https://img.shields.io/badge/Sleep-CLI-blue)](https://github.com/davidtkeane/Sleep-CLI)
+[![PhoneBook CLI](https://img.shields.io/badge/PhoneBook-CLI-blue)](https://github.com/davidtkeane/PhoneBook-CLI)
+
+![Discord](https://img.shields.io/discord/815701213827301396)
 
 ## Table of Contents
 
