@@ -1,13 +1,70 @@
 #!/usr/bin/env python3
 
-# Created by Ranger (Dec 2024)
+# Created by Ranger (Feb 2024) Version 1.0.0
+# Modified by David Keane (Dec 31st 2024) Version 2.0.1
+
 # Title: Gmail Email Client v1.0 for Python and CLI
-# Version: 2.0
-# This version of the gmail script is altered by having your user and pass inside the script.
-# This script 
+
+# More details are available in the 'how_to_use.md' file in the extra-bonus folder. 
+# There are a few steps to get this script working with the Gmail Bin feature.
+
+# Version: 2.0.1
+# Description: A simple email client that allows you to check, read, and send emails from your Gmail account.
+
+# About:
+# This version allows you to select from multiple Gmail accounts using dotenv and colorama.
+# Features: Fetch new emails, fetch older emails, read emails, send emails, and switch between multiple accounts.
+#
+# Usage: Run the script and follow the prompts to select an account and choose an action from the menu.
+#
+# Dependencies: colorama, python-dotenv
+# Installation: pip install colorama python-dotenv
+#
+# Gmail Email Credentials - Google Less Secure App Passwords
+#
+# Note: Make sure to enable "Less Secure Apps" in your Gmail settings to send emails.
+# Go here to get yours @ https://myaccount.google.com/apppasswords
+#
+# Extra-bonus scripts: usr-bin.sh and Gmail Multi-User Bin Script.
+# 
+# The Gmail Email Client has an extra-bonus feature called Gmail Bin that allows you to run the script from anywhere in the terminal.
+#
+# There are two versions of the Gmail Bin feature:
+# 
+# 1. gmail_multi_usr_bin.py
+# The Gmail version in the extra-bonus/gmail_multi_usr_bin.py file is a standalone script that can be run from the command line with the password as an argument.
+# This Gmail Bin version works by entering the prompt gmail in the terminal and the Gmail script will run from anywhere inside your files and drives.
+# More details are available in the gmail_multi_usr_bin.py file and the how_to_use.md file in the extra-bonus folder.
+#
+# 2. usr-bin.sh
+# The usr-bin.sh script is a bash script that creates a symbolic link to the Gmail script in the /usr/local/bin directory.
+# This allows you to run the Gmail script from anywhere in the terminal by simply typing gmail.
+# More details are available in the usr-bin.sh file and the how_to_use.md file in the extra-bonus folder.
+# 
+# 3. gmail_ping_test.py
+# The gmail_ping_test.py script is a simple script that pings the Gmail server to check the connection status.
+# This script can be run from the command line to test the connection to the Gmail server.
+# More details are available in the how_to_use.md file in the extra-bonus folder.
+#
+# Instructions:
+#
+# To use the Gmail Bin version, follow these steps:
+# Note: Make sure to enable "Less Secure Apps" in your Gmail settings to send emails.
+# Go here to get yours @ https://myaccount.google.com/apppasswords
+#
+# A: Two options to rename the file:
+#       1st Option. The file has to save the file without the .py extension. For example, rn gmail_multi_usr_bin.py to gmail
+#       2nd Option. The file has to be renamed to gmail (without the .py extension). For example, mv gmail_multi_usr_bin.py gmail
+#
+# B: The file has to be made executable using the chmod +x command. For example, chmod +x gmail
+# C: The file has to be moved to the /usr/local/bin directory. For example, sudo mv gmail /usr/local/bin
+#
+# D: You will need to refresh the terminal or run source ~/.bashrc to use the gmail command from anywhere.
+#
+# Congrats! The file now can be run from the terminal by typing gmail. For example, gmail
 
 
-
+# Import required libraries
 import os
 import smtplib
 import imaplib

@@ -1,16 +1,90 @@
 #!/usr/bin/env python3
 
+# Created by Ranger (Feb 2024) Version 1.0.0
+# Modified by David Keane (Dec 31st 2024) Version 2.0.1
+
+# Title: Gmail Email Client v1.0 for Python and CLI
+
+# Version: 2.0.1
+# Description: A simple email client that allows you to check, read, and send emails from your Gmail account.
+
+# About:
+# This version allows you to select from multiple Gmail accounts using dotenv and colorama.
+# Features: Fetch new emails, fetch older emails, read emails, send emails, and switch between multiple accounts.
+#
+# Usage: Run the script and follow the prompts to select an account and choose an action from the menu.
+#
+# Dependencies: colorama, python-dotenv
+# Installation: pip install colorama python-dotenv
+#
+# Gmail Email Credentials - Google Less Secure App Passwords
+#
+# Note: Make sure to enable "Less Secure Apps" in your Gmail settings to send emails.
+# Go here to get yours @ https://myaccount.google.com/apppasswords
+#
+# Extra-bonus scripts: usr-bin.sh and Gmail Multi-User Bin Script.
+# 
+# The Gmail Email Client has an extra-bonus feature called Gmail Bin that allows you to run the script from anywhere in the terminal.
+#
+# There are two versions of the Gmail Bin feature:
+# 
+# 1. gmail_multi_usr_bin.py
+# The Gmail version in the extra-bonus/gmail_multi_usr_bin.py file is a standalone script that can be run from the command line with the password as an argument.
+# This Gmail Bin version works by entering the prompt gmail in the terminal and the Gmail script will run from anywhere inside your files and drives.
+# More details are available in the gmail_multi_usr_bin.py file and the how_to_use.md file in the extra-bonus folder.
+#
+# 2. usr-bin.sh
+# The usr-bin.sh script is a bash script that creates a symbolic link to the Gmail script in the /usr/local/bin directory.
+# This allows you to run the Gmail script from anywhere in the terminal by simply typing gmail.
+# More details are available in the usr-bin.sh file and the how_to_use.md file in the extra-bonus folder.
+# 
+# 3. gmail_ping_test.py
+# The gmail_ping_test.py script is a simple script that pings the Gmail server to check the connection status.
+# This script can be run from the command line to test the connection to the Gmail server.
+# More details are available in the how_to_use.md file in the extra-bonus folder.
+#
+# Instructions:
+#
+# To use the Gmail Bin version, follow these steps:
+# Note: Make sure to enable "Less Secure Apps" in your Gmail settings to send emails.
+# Go here to get yours @ https://myaccount.google.com/apppasswords
+#
+# A: Two options to rename the file:
+#       1st Option. The file has to save the file without the .py extension. For example, rn gmail_multi_usr_bin.py to gmail
+#       2nd Option. The file has to be renamed to gmail (without the .py extension). For example, mv gmail_multi_usr_bin.py gmail
+#
+# B: The file has to be made executable using the chmod +x command. For example, chmod +x gmail
+# C: The file has to be moved to the /usr/local/bin directory. For example, sudo mv gmail /usr/local/bin
+#
+# D: You will need to refresh the terminal or run source ~/.bashrc to use the gmail command from anywhere.
+#
+# Congrats! The file now can be run from the terminal by typing gmail. For example, gmail
+
+
+# Import required libraries
+
+# Gmail Email Client v1.0 for Python and CLI
+
+# Importing required libraries
 import os
 import smtplib
 import imaplib
 import email
 import sys
 import logging
+import os
+import subprocess
+import platform
+import socket
+import re
+import psutil
+
+from dotenv import load_dotenv
 from time import sleep
 from email.header import decode_header
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from dotenv import load_dotenv
+
 from colorama import Fore, Style, init
 
 # Initialize colorama
@@ -22,25 +96,32 @@ load_dotenv()
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
+# Email Credentials
+# This dictionary stores the email accounts and their credentials
+# You can add more email accounts here by following the same format
+# Replace the example credentials with your actual email credentials
 # Get email user and password from environment variables
+# You can set these in a .env file or directly in your system environment variables
+
 EMAIL_ACCOUNTS = {
     '1': {
-        'user': os.getenv('EMAIL_USER_Bob'),
-        'pass': os.getenv('EMAIL_PASS_Bob')
+        'user': os.getenv('EMAIL_USER_Ranger'),
+        'pass': os.getenv('EMAIL_PASS_Ranger')
     },
     '2': {
-        'user': os.getenv('EMAIL_USER_Man'),
-        'pass': os.getenv('EMAIL_PASS_Man')
+        'user': os.getenv('EMAIL_USER_David'),
+        'pass': os.getenv('EMAIL_PASS_David')
     },
     '3': {
-        'user': os.getenv('EMAIL_USER_Linky'),
-        'pass': os.getenv('EMAIL_PASS_Linky')
+        'user': os.getenv('EMAIL_USER_Proxy'),
+        'pass': os.getenv('EMAIL_PASS_Proxy')
     }
 }
 
 # Gmail Email Credentials - Google Less Secure App Passwords
 # Go here to get yours @ https://myaccount.google.com/apppasswords
 
+# Email ASCII Art
 
 def print_ascii_gmail2():
     print(r"""
@@ -72,8 +153,41 @@ def print_ascii_gmail2():
 ............................=::::::::::::::::::::::::::::::::::-..........................
 ...............................:-::::::::::::::::::::::::::-:.............................
 """)
+    pass  # This line is crucial to actually display the ascii art
 
-# Display settings
+
+# This is the banner for the bot
+def banner():
+    Banner = """
+            ____  ___    _   __________________       _____ __  _____  __________  __
+           / __ \/   |  / | / / ____/ ____/ __ \     / ___//  |/  /\ \/ /_  __/ / / /
+          / /_/ / /| | /  |/ / / __/ __/ / /_/ /_____\__ \/ /|_/ /  \  / / / / /_/ /
+         / _, _/ ___ |/ /|  / /_/ / /___/ _, _/_____/__/ / /  / /   / / / / / __  /
+        /_/ |_/_/  |_/_/ |_/\____/_____/_/ |_|     /____/_/  /_/   /_/ /_/ /_/ /_/
+"""
+    print(Banner)  # This line is crucial to actually display the banner
+
+def bunny():
+    print(r"""
+            % 💀
+
+           /\ /|
+          |||| |
+           \ | \
+       _ _ /  ()()
+     /    \   =>*<=
+   /|      \   /
+   \|     /__| |
+     \_____) \__)
+
+
+I hope this helps!% 💀
+    """)
+
+
+# Display settings for email previews
+# You can adjust these settings to change the appearance of the email previews
+
 DISPLAY_SETTINGS = {
     'max_subject_length': 50,
     'max_preview_length': 100,
@@ -81,15 +195,31 @@ DISPLAY_SETTINGS = {
     'body_width': 70
 }
 
+# --- Colors --- # 
+# This is the color scheme for the script
+# You can customize the colors by changing the values here
+
+GREEN = '\033[0;32m'
+YELLOW = '\033[1;33m'
+RED = '\033[0;31m'
+BLUE = '\033[0;34m'
+MAGENTA = '\033[0;35m'
+NC = '\033[0m'
+
+# Function to clear the screen
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
+
+# Print welcome banner
+print("\nMade By David\nVersion 1.0.0\n")
+print("Welcome to the Gmail Email Client!\n")
 
 def select_account():
     print_ascii_gmail2()
     print(Fore.YELLOW + "\nSelect an account:")
-    print("1. Bob")
-    print("2. Man")
-    print("3. Linky")
+    print("1. Ranger Smyth")
+    print("2. David Keane")
+    print("3. Proxy Busterburg")
     print("0. Exit" + Style.RESET_ALL)
     while True:
         choice = input(Fore.YELLOW + "Enter your choice: " + Style.RESET_ALL)
@@ -287,4 +417,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+    clear_screen()
     print_ascii_gmail2()

@@ -52,38 +52,67 @@ For more information or support, please open an issue on the GitHub repository.
 
 ## Installation
 
+# Instructions How to Use.
+
+A. gmail_multi_usr_bin.py   <-- This file will be sent to the /usr/local/bin/ folder so you can run gmail from the command line.>
+
+B. gmail_ping_test.py       <-- This file must be in the same folder as gmail_multi.py and .env file to work.>  
+
+This script will test the connections after you get your app password. # Change your name from Bob below in the script. Not below, but below on Line 39 and 40 in gmail_ping_test.py.
+
+        # Get credentials from environment variables (BEST PRACTICE)
+        # EMAIL_USER = os.getenv("EMAIL_USER_Bob")
+        # EMAIL_PASS = os.getenv("EMAIL_PASS_Bob")
+
+C. usr-bin.sh               <-- This script is to used for sending the gmail_multi_usr_bin.py to the /usr/local/bin/ folder so you can run gmail from the command line.>
+
+D. how_to_use.md            <-- This File will help you setup gmail_multi_usr_bin.py to be able to run on the command line.>
+
+# Note. Both gmail scripts need google user and password, the only difference is that the Bin version has the users and passwords inside the scripts while the gmail_multi.py saves the user names and passwords to a .env file for security. 
+# The bin version is also secure, as you will need to use your password to save the files into the location, I did on my Macbook Pro m3. And anytime I change anything I have to enter my password. 
+
 1. Clone the repository:
 
-   ```
+   ```bash
    git clone https://github.com/yourusername/gmail-multi-cli.git
    cd gmail-multi-cli
    ```
-2. Create a virtual environment (optional but recommended):
+2. Create a virtual environment (optional but recommended): 
 
-   ```
+   NOTE: I don't myself, but if you don't know what a virtual environment (venv) is then not need to do this.
+
+   ```bash
    python -m venv venv
    source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
    ```
 3. Install the required packages:
 
-   ```
+   ```bash
    pip install -r requirements.txt
    ```
 4. Set up your `.env` file with your Gmail account credentials (see [Configuration](#configuration) section).
+
+5. Install the modules needed to run the script Requirements.txt
+
+   Locate a file named `requirements.txt` in your project directory with the following content:
+
+   ```bash
+   python-dotenv==0.19.2
+   colorama==0.4.4
+   ```
+
+   Install requirements.txt
+
+   ```bash
+   pip install requirements.txt
+   ```
 5. Run the script:
 
-   ```
+   ```bash
    python gmail_multi.py
    ```
+6. Congrats!
 
-### Requirements.txt
-
-Create a file named `requirements.txt` in your project directory with the following content:
-
-```
-python-dotenv==0.19.2
-colorama==0.4.4
-```
 
 ### Using App Passwords (Recommended for accounts with 2-Step Verification)
 
@@ -112,7 +141,7 @@ If you’ve set up 2-Step Verification but can’t find the option to add an app
 
 After installation and setup, run the script:
 
-```
+```bash
 python gmail_multi.py
 ```
 

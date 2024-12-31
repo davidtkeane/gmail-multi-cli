@@ -1,4 +1,21 @@
-# Instructions for using this script in the terminal.
+# Instructions How to Use.
+
+1. gmail_multi_usr_bin.py   
+                            <-- This file will be sent to the /usr/local/bin/ folder so you can run gmail from the command line.>
+
+2. gmail_ping_test.py       <-- This file must be in the same folder as gmail_multi.py and .env file to work.>  
+
+This script will test the connections after you get your app password. # Change your name from Bob below in the script. Not below, but below on Line 39 and 40 in gmail_ping_test.py.
+
+        # Get credentials from environment variables (BEST PRACTICE)
+        # EMAIL_USER = os.getenv("EMAIL_USER_Bob")
+        # EMAIL_PASS = os.getenv("EMAIL_PASS_Bob")
+
+3. usr-bin.sh               
+                            <-- This script is to used for sending the gmail_multi_usr_bin.py to the /usr/local/bin/ folder so you can run gmail from the command line.>
+
+4. how_to_use.md            <-- This is this file.>
+
 
 **Making the Script Executable and Adding it to the PATH**
 
