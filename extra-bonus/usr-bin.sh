@@ -35,3 +35,13 @@ if [ $? -ne 0 ]; then
 fi
 
 echo "Successfully copied and made $destination executable."
+
+# Sleep for 5 seconds
+sleep 5
+
+# Refresh the bash profile
+
+# shellcheck source=/dev/null
+source ~/.zshrc
+# shellcheck source=/dev/null
+source ~/.bashrc 
