@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 # Created by Ranger (Feb 2024) Version 1.0.0
 # Modified by David Keane (Dec 31st 2024) Version 2.0.1
@@ -31,6 +32,12 @@
 #
 # There are two versions of the Gmail Bin feature:
 # 
+# 0. gmail_multi.py
+# 
+# The gmail_multi.py is the main script that allows you to select from multiple Gmail accounts and perform actions like checking new emails, reading emails, and sending emails.
+# This script is the main Gmail Email Client that you can run from the terminal.
+# You can run the script by typing python gmail_multi.py in the terminal.
+# 
 # 1. gmail_multi_usr_bin.py
 # The Gmail version in the extra-bonus/gmail_multi_usr_bin.py file is a standalone script that can be run from the command line with the password as an argument.
 # This Gmail Bin version works by entering the prompt gmail in the terminal and the Gmail script will run from anywhere inside your files and drives.
@@ -46,9 +53,8 @@
 # This script can be run from the command line to test the connection to the Gmail server.
 # More details are available in the how_to_use.md file in the extra-bonus folder.
 #
-# Instructions:
-#
 # To use the Gmail Bin version, follow these steps:
+#
 # Note: Make sure to enable "Less Secure Apps" in your Gmail settings to send emails.
 # Go here to get yours @ https://myaccount.google.com/apppasswords
 #
@@ -63,7 +69,6 @@
 #
 # Congrats! The file now can be run from the terminal by typing gmail. For example, gmail
 
-
 # Import required libraries
 import os
 import smtplib
@@ -75,12 +80,10 @@ from time import sleep
 from email.header import decode_header
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-
 from colorama import Fore, Style, init
 
 # Initialize colorama
 init(autoreset=True)
-
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -347,4 +350,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+    clear_screen()
     print_ascii_gmail2()

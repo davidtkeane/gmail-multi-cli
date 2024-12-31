@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 # Created by Ranger (Dec 2024)
 # Title: Gmail Ping Test 

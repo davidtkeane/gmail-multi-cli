@@ -1,7 +1,6 @@
 # Instructions How to Use.
 
-1. gmail_multi_usr_bin.py   
-                            <-- This file will be sent to the /usr/local/bin/ folder so you can run gmail from the command line.>
+1. gmail_multi_usr_bin.py   <-- This file will be sent to the /usr/local/bin/ folder so you can run gmail from the command line.>
 
 2. gmail_ping_test.py       <-- This file must be in the same folder as gmail_multi.py and .env file to work.>  
 
@@ -11,8 +10,7 @@ This script will test the connections after you get your app password. # Change 
         # EMAIL_USER = os.getenv("EMAIL_USER_Bob")
         # EMAIL_PASS = os.getenv("EMAIL_PASS_Bob")
 
-3. usr-bin.sh               
-                            <-- This script is to used for sending the gmail_multi_usr_bin.py to the /usr/local/bin/ folder so you can run gmail from the command line.>
+3. usr-bin.sh               <-- This script is to used for sending the gmail_multi_usr_bin.py to the /usr/local/bin/ folder so you can run gmail from the command line.>
 
 4. how_to_use.md            <-- This is this file.>
 
@@ -24,6 +22,7 @@ Here's how to make your script easily runnable from the terminal:
 **Easy Step (macOS/Linux):**
 
 Once you have your App Password and entered it into the .env file and also edit gmail_multi.py with the user and pass info entered. Now you can run the script with this command:
+
 ```bash
     python gmail_multi.py
 ```
@@ -44,16 +43,19 @@ Once you have your App Password and entered it into the .env file and also edit 
 
 2. Enter the extra-bonus folder:
 3. Then run the following command in the terminal. 
+
     This will also change the name from gmail_multi_usr_bin.py to gmail.
 
     ```bash
     bash usr-bin.sh
     ```
 3. Refresh your terminal:
+
     ```bash
     source ~/.zshrc
     ```
 4. Run this command in the terminal and the script gmail should work. 
+
     ```bash
     gmail
     ```
@@ -61,6 +63,7 @@ Once you have your App Password and entered it into the .env file and also edit 
 **Steps (macOS/Linux):**
 
 1.  **Add Shebang:**
+
     *   At the very top of your `gmail_multi_usr_bin.py` file, add the following shebang line:
 
         ```bash
@@ -70,6 +73,7 @@ Once you have your App Password and entered it into the .env file and also edit 
         This tells the system to use the Python 3 interpreter to run the script.
 
 2.  **Make the Script Executable:**
+
     *   Use the `chmod` command in your terminal:
 
         ```bash
@@ -79,6 +83,7 @@ Once you have your App Password and entered it into the .env file and also edit 
         Replace `/path/to/your/gmail_multi_usr_bin.py` with the actual path to your script.
 
 3.  **Move to `/usr/local/bin/` (Recommended):**
+
     *   This directory is typically already in your `PATH`. Move your script there:
 
         ```bash
@@ -98,6 +103,7 @@ Once you have your App Password and entered it into the .env file and also edit 
 **Steps (Windows):**
 
 1.  **Add .py Extension to PATHEXT:**
+
     1.  Search for "environment variables" in the Start Menu and select "Edit the system environment variables."
     2.  Click "Environment Variables...".
     3.  Under "System variables," select `PATHEXT` and click "Edit...".
@@ -105,6 +111,7 @@ Once you have your App Password and entered it into the .env file and also edit 
     5.  Click "OK" on all open windows.
 
 2.  **Move Script to a Directory in PATH:**
+
     *   You can move your `gmail_multi_usr_bin.py` script to a directory that's already in your `PATH` environment variable (e.g., `C:\Windows\System32`, but this is generally not recommended for user scripts).
     *   **Better:** Create a new directory for your scripts (e.g., `C:\Users\YourUserName\bin` or `C:\scripts`) and add that directory to your `PATH` environment variable (similar to how you edited `PATHEXT`).
 
@@ -113,6 +120,7 @@ Once you have your App Password and entered it into the .env file and also edit 
 After completing the steps above:
 
 *   **macOS/Linux:**
+
     *   Open your terminal and simply type:
 
         ```bash
@@ -120,6 +128,7 @@ After completing the steps above:
         ```
 
 *   **Windows:**
+
     *   Open a command prompt or PowerShell and type:
 
         ```powershell

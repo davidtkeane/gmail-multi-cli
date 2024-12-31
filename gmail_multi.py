@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 # Created by Ranger (Feb 2024) Version 1.0.0
 # Modified by David Keane (Dec 31st 2024) Version 2.0.1
