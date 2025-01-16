@@ -2,49 +2,35 @@
 
 A powerful command-line interface for managing multiple Gmail accounts, built with Python.
 
+## Introduction
+
+Welcome to the Gmail Multi-Account CLI! This tool is designed to help you efficiently manage multiple Gmail accounts from the command line. Whether you need to check emails, send messages, or organize your inbox, this CLI provides a simple and intuitive interface to handle all your Gmail needs. With support for multiple accounts, you can easily switch between different Gmail accounts without logging in and out repeatedly.
+
+![Gmail CLI](extra-bonus/gmail.webp)
+
+## Socials
+
+[![Github](https://img.shields.io/badge/github-%2324292e.svg?&style=for-the-badge&logo=github&logoColor=white)](https://github.com/davidtkeane)
+[![X](https://img.shields.io/badge/twitter-%2300acee.svg?&style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/davidtkeane)
+[![Linkedin](https://img.shields.io/badge/linkedin-%231E77B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/)
+
 ### Github
 
 [![Gmail Multi-Account CLI](https://img.shields.io/badge/Gmail-Multi--Account%20CLI-green?logo=gmail&logoColor=white&labelColor=EA4335)](https://github.com/davidtkeane/gmail-multi-cli)
-[![Gmail CLI](https://img.shields.io/badge/Gmail-CLI-red?style=flat&logo=gmail&logoColor=white&labelColor=gray)](https://github.com/davidtkeane/gmail-multi-cli)
-[![Gmail Python CLI](https://img.shields.io/badge/Gmail-Python%20CLI-blue?style=flat&logo=gmail&logoColor=white&labelColor=red)](https://github.com/davidtkeane/gmail-multi-cli)
 
-![GitHub last commit](https://img.shields.io/github/last-commit/davidtkeane/Sleep-CLI?style=flat-square)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/w/davidtkeane/Sleep-CLI?authorFilter=davidtkeane)
-![GitHub issues](https://img.shields.io/github/issues-raw/davidtkeane/Sleep-CLI?style=flat-square)
+### Github Commits
+
+![GitHub last commit](https://img.shields.io/github/last-commit/davidtkeane/gmail-multi-cli?style=flat-square)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/w/davidtkeane/gmail-multi-cli?authorFilter=davidtkeane)
+![GitHub issues](https://img.shields.io/github/issues-raw/davidtkeane/gmail-multi-cli?style=flat-square)
 ![GitHub Sponsors](https://img.shields.io/github/sponsors/davidtkeane)
 
-### Other Scripts from me.
+### Badges
 
-[![CodeTime Badge](https://img.shields.io/endpoint?style=social&color=222&url=https%3A%2F%2Fapi.codetime.dev%2Fshield%3Fid%3D26388%26project%3D%26in=0)](https://codetime.dev)
+![Windows-Badge](https://img.shields.io/badge/Microsoft-Windows%2011-0078D6?logo=windows&logoColor=0078D6&labelColor=white)
+![AppleMac-Badge](https://img.shields.io/badge/Apple-macOS-000000?logo=apple&logoColor=white&labelColor=black)
+![Linux-Badge](https://img.shields.io/badge/Linux-FCC624?logo=linux&logoColor=black&labelColor=white)
 
-![Discord](https://img.shields.io/discord/815701213827301396)
-
-[![Gmail Multi-Account CLI](https://img.shields.io/badge/Gmail-Multi--Account%20CLI-green?logo=gmail&logoColor=white&labelColor=EA4335)](https://github.com/davidtkeane/gmail-multi-cli)
-[![Gmail CLI](https://img.shields.io/badge/Gmail-CLI-red?style=flat&logo=gmail&logoColor=white&labelColor=gray)](https://github.com/davidtkeane/gmail-multi-cli)
-[![Gmail Python CLI](https://img.shields.io/badge/Gmail-Python%20CLI-blue?style=flat&logo=gmail&logoColor=white&labelColor=red)](https://github.com/davidtkeane/gmail-multi-cli)
-[![Sleep CLI](https://img.shields.io/badge/Sleep-CLI-blue)](https://github.com/davidtkeane/Sleep-CLI)
-[![PhoneBook CLI](https://img.shields.io/badge/PhoneBook-CLI-blue)](https://github.com/davidtkeane/PhoneBook-CLI)
-[![Kermit ScreenSaver](https://img.shields.io/badge/kermit-screensaver-blue)](https://github.com/davidtkeane/kermit)
-
-<div align="left">
-<a href="https://github.com/davidtkeane" target="_blank">
-<img src=https://img.shields.io/badge/github-%2324292e.svg?&style=for-the-badge&logo=github&logoColor=white alt=github style="margin-bottom: 5px;" />
-</a>
-<a href="https://twitter.com/davidtkeane" target="_blank">
-<img src=https://img.shields.io/badge/twitter-%2300acee.svg?&style=for-the-badge&logo=twitter&logoColor=white alt=twitter style="margin-bottom: 5px;" />
-</a>
-<a href="https://linkedin.com/in/sami-hindi-b31435248/" target="_blank">
-<img src=https://img.shields.io/badge/linkedin-%231E77B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white alt=linkedin style="margin-bottom: 5px;" />
-</a>
-<br>
-<p align="left">
-  <img src="https://img.shields.io/badge/Microsoft-Windows%2011-0078D6?logo=windows&logoColor=0078D6&labelColor=white" alt="Windows 11">
-  <img src="https://img.shields.io/badge/Apple-macOS-000000?logo=apple&logoColor=white&labelColor=black" alt="macOS">
-  <img src="https://img.shields.io/badge/Linux-FCC624?logo=linux&logoColor=black&labelColor=white" alt="Linux">
-</p>
-</div>
-
-![Buy me a coffee](https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20coffee&emoji=&slug=davidtkeanek&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff)
 
 ## Table of Contents
 
@@ -58,6 +44,22 @@ A powerful command-line interface for managing multiple Gmail accounts, built wi
 - [Contributing](#contributing)
 - [License](#license)
 - [Glossary](#glossary)
+
+<br>
+
+![Gmail CLI](extra-bonus/gmail2.webp)
+
+### Time @ Work!
+
+[![CodeTime Badge](https://img.shields.io/endpoint?style=social&color=222&url=https%3A%2F%2Fapi.codetime.dev%2Fshield%3Fid%3D26388%26project%3D%26in=0)](https://codetime.dev)
+
+### My Other Cool Scripts.
+
+[![Sleep CLI](https://img.shields.io/badge/Sleep-CLI-blue)](https://github.com/davidtkeane/Sleep-CLI)
+[![PhoneBook CLI](https://img.shields.io/badge/PhoneBook-CLI-blue)](https://github.com/davidtkeane/PhoneBook-CLI)
+[![Kermit ScreenSaver](https://img.shields.io/badge/kermit-screensaver-blue)](https://github.com/davidtkeane/kermit)
+Join my Discord --> [![Discord](https://img.shields.io/discord/815701213827301396)](https://discord.gg/HZy4TAUK)
+
 
 ## Features
 
@@ -256,3 +258,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 For more information or support, please open an issue on the GitHub repository.
+
+[![Buy me a coffee](https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20coffee&emoji=&slug=davidtkeane&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff)](https://buymeacoffee.com/davidtkeane)
