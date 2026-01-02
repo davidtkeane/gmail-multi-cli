@@ -2,6 +2,23 @@
 
 - Any planned features or known issues can be listed here.
 
+## [3.1.0] - 2026-01-02
+
+### Added
+- **Sudo Authentication** - Local security feature requiring password before accessing emails
+  - Prevents unauthorized access to your email accounts
+  - Read-only commands (`--help`, `--bunny`, `--accounts`) skip sudo
+  - Sensitive commands (`--check`, `--send`, `--test`) require authentication
+- **getpass import** - Secure password input (hidden characters)
+
+### Changed
+- **Version bump to 3.1.0** - Security feature release
+- **Enhanced security messaging** - Clear authentication prompts with color formatting
+
+### Security
+- **Email access protection** - Sudo password required before reading/sending emails
+- **Cross-platform support** - Sudo check skipped on Windows
+
 ## [3.0.0] - 2026-01-02
 
 ### Added
@@ -111,7 +128,8 @@
 - Command-line interface for interacting with Gmail.
 
 
-[Unreleased]: https://github.com/davidtkeane/gmail-multi-cli/compare/v3.0.0...HEAD
+[Unreleased]: https://github.com/davidtkeane/gmail-multi-cli/compare/v3.1.0...HEAD
+[3.1.0]: https://github.com/davidtkeane/gmail-multi-cli/compare/v3.0.0...v3.1.0
 [3.0.0]: https://github.com/davidtkeane/gmail-multi-cli/compare/v2.0.1...v3.0.0
 [2.0.1]: https://github.com/davidtkeane/gmail-multi-cli/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/davidtkeane/gmail-multi-cli/compare/v1.1.0...v2.0.0

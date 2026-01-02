@@ -2,10 +2,10 @@
 # -*- coding: utf-8 -*-
 
 """
-Gmail Email Client v3.0
+Gmail Email Client v3.1
 A powerful CLI email client for managing multiple Gmail accounts.
 
-Version: 3.0.0
+Version: 3.1.0
 Created by: Ranger (Feb 2024)
 Modified by: David Keane (Jan 2026)
 
@@ -94,6 +94,7 @@ import socket
 import re
 import argparse
 import psutil
+import getpass
 
 from time import sleep
 from email.header import decode_header
@@ -106,6 +107,55 @@ init(autoreset=True)
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
+# =============================================================================
+# SUDO AUTHENTICATION (Local Security Feature)
+# =============================================================================
+
+def needs_sudo():
+    """Check if the current command needs sudo access."""
+    # Read-only commands that don't need sudo
+    read_only_args = ['--help', '-h', '--bunny', '--accounts']
+    for arg in sys.argv[1:]:
+        if arg in read_only_args:
+            return False
+    return True
+
+def request_sudo_password():
+    """Request sudo password for security before accessing email accounts."""
+    if platform.system().lower() == 'windows':
+        return  # Skip on Windows
+
+    if os.geteuid() == 0:  # Already running as root
+        return
+
+    print()
+    print(f"{Fore.YELLOW}{'='*60}{Style.RESET_ALL}")
+    print(f"{Fore.YELLOW}  🔐 Local Security Authentication{Style.RESET_ALL}")
+    print(f"{Fore.YELLOW}{'='*60}{Style.RESET_ALL}")
+    print()
+    print(f"{Fore.CYAN}This script requires authentication to access email accounts.{Style.RESET_ALL}")
+    print(f"{Fore.CYAN}This prevents unauthorized access to your emails.{Style.RESET_ALL}")
+    print()
+
+    try:
+        password = getpass.getpass(f"{Fore.GREEN}Enter sudo password: {Style.RESET_ALL}")
+        cmd = ['sudo', '-S', 'echo', 'authenticated']
+        result = subprocess.run(cmd, input=f"{password}\n", text=True, capture_output=True)
+        if result.returncode != 0:
+            print(f"\n{Fore.RED}✗ Invalid sudo password. Access denied.{Style.RESET_ALL}")
+            sys.exit(1)
+        print(f"\n{Fore.GREEN}✓ Authentication successful!{Style.RESET_ALL}\n")
+    except KeyboardInterrupt:
+        print(f"\n{Fore.RED}✗ Authentication cancelled.{Style.RESET_ALL}")
+        sys.exit(1)
+    except Exception as e:
+        print(f"{Fore.RED}✗ Authentication failed: {e}{Style.RESET_ALL}")
+        sys.exit(1)
+
+# Request sudo for sensitive operations
+if needs_sudo() and len(sys.argv) > 1:
+    request_sudo_password()
 
 # Email Credentials
 # You can add more email accounts here by following the same format
