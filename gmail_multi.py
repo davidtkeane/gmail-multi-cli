@@ -1,121 +1,128 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# Created by Ranger (Feb 2024) Version 1.0.0
-# Modified by David Keane (Dec 31st 2024) Version 2.0.1
+"""
+Gmail Email Client v3.0
+A powerful CLI email client for managing multiple Gmail accounts.
 
-# Title: Gmail Email Client v1.0 for Python and CLI
+Version: 3.0.0
+Created by: Ranger (Feb 2024)
+Modified by: David Keane (Jan 2026)
 
-# Version: 2.0.1
-# Description: A simple email client that allows you to check, read, and send emails from your Gmail account.
+Features:
+- Multiple Gmail account support
+- Check new/old emails
+- Read and forward emails
+- Send emails from CLI
+- Search emails
+- Connection testing
 
-# About:
-# This version allows you to select from multiple Gmail accounts using dotenv and colorama.
-# Features: Fetch new emails, fetch older emails, read emails, send emails, and switch between multiple accounts.
-#
-# Usage: Run the script and follow the prompts to select an account and choose an action from the menu.
-#
-# Dependencies: colorama, python-dotenv
-# Installation: pip install colorama python-dotenv
-#
-# Gmail Email Credentials - Google Less Secure App Passwords
-#
-# Note: Make sure to enable "Less Secure Apps" in your Gmail settings to send emails.
-# Go here to get yours @ https://myaccount.google.com/apppasswords
-#
-# Extra-bonus scripts: usr-bin.sh and Gmail Multi-User Bin Script.
-# 
-# The Gmail Email Client has an extra-bonus feature called Gmail Bin that allows you to run the script from anywhere in the terminal.
-#
-# There are two versions of the Gmail Bin feature:
-# 
-# 1. gmail_multi_usr_bin.py
-# The Gmail version in the extra-bonus/gmail_multi_usr_bin.py file is a standalone script that can be run from the command line with the password as an argument.
-# This Gmail Bin version works by entering the prompt gmail in the terminal and the Gmail script will run from anywhere inside your files and drives.
-# More details are available in the gmail_multi_usr_bin.py file and the how_to_use.md file in the extra-bonus folder.
-#
-# 2. usr-bin.sh
-# The usr-bin.sh script is a bash script that creates a symbolic link to the Gmail script in the /usr/local/bin directory.
-# This allows you to run the Gmail script from anywhere in the terminal by simply typing gmail.
-# More details are available in the usr-bin.sh file and the how_to_use.md file in the extra-bonus folder.
-# 
-# 3. gmail_ping_test.py
-# The gmail_ping_test.py script is a simple script that pings the Gmail server to check the connection status.
-# This script can be run from the command line to test the connection to the Gmail server.
-# More details are available in the how_to_use.md file in the extra-bonus folder.
-#
-# Instructions:
-#
-# To use the Gmail Bin version, follow these steps:
-# Note: Make sure to enable "Less Secure Apps" in your Gmail settings to send emails.
-# Go here to get yours @ https://myaccount.google.com/apppasswords
-#
-# A: Two options to rename the file:
-#       1st Option. The file has to save the file without the .py extension. For example, rn gmail_multi_usr_bin.py to gmail
-#       2nd Option. The file has to be renamed to gmail (without the .py extension). For example, mv gmail_multi_usr_bin.py gmail
-#
-# B: The file has to be made executable using the chmod +x command. For example, chmod +x gmail
-# C: The file has to be moved to the /usr/local/bin directory. For example, sudo mv gmail /usr/local/bin
-#
-# D: You will need to refresh the terminal or run source ~/.bashrc to use the gmail command from anywhere.
-#
-# Congrats! The file now can be run from the terminal by typing gmail. For example, gmail
+Dependencies: colorama, psutil (auto-installed if missing)
 
+Setup:
+1. Get App Password: https://myaccount.google.com/apppasswords
+2. Add your credentials to EMAIL_ACCOUNTS dict below
+3. Run: gmail --help
+"""
 
-# Import required libraries
+# =============================================================================
+# AUTO-INSTALL MISSING PACKAGES
+# =============================================================================
+import subprocess
+import sys
 
-# Gmail Email Client v1.0 for Python and CLI
+def check_and_install_packages():
+    """Check for required packages and offer to install if missing."""
+    required_packages = {
+        'colorama': 'colorama',
+        'psutil': 'psutil',
+    }
 
-# Importing required libraries
+    missing = []
+    for module, package in required_packages.items():
+        try:
+            __import__(module)
+        except ImportError:
+            missing.append(package)
+
+    if missing:
+        print(f"\n⚠️  Missing required packages: {', '.join(missing)}")
+        print(f"These packages are needed for the Gmail client to work.\n")
+
+        response = input(f"Install missing packages now? (y/n): ").strip().lower()
+        if response in ['y', 'yes']:
+            for package in missing:
+                print(f"Installing {package}...")
+                try:
+                    subprocess.check_call([
+                        sys.executable, '-m', 'pip', 'install', package, '--quiet'
+                    ])
+                    print(f"✓ {package} installed successfully")
+                except subprocess.CalledProcessError:
+                    # Try with --user flag
+                    try:
+                        subprocess.check_call([
+                            sys.executable, '-m', 'pip', 'install', package, '--user', '--quiet'
+                        ])
+                        print(f"✓ {package} installed successfully (user)")
+                    except subprocess.CalledProcessError:
+                        print(f"✗ Failed to install {package}")
+                        print(f"  Try manually: pip install {package}")
+                        sys.exit(1)
+            print("\n✓ All packages installed! Restarting...\n")
+            # Re-run the script
+            import os
+            os.execv(sys.executable, [sys.executable] + sys.argv)
+        else:
+            print("\nTo install manually, run:")
+            print(f"  pip install {' '.join(missing)}")
+            sys.exit(1)
+
+# Check packages before importing
+check_and_install_packages()
+
+# =============================================================================
+# IMPORTS
+# =============================================================================
 import os
 import smtplib
 import imaplib
 import email
-import sys
 import logging
-import os
-import subprocess
 import platform
 import socket
 import re
+import argparse
 import psutil
 
-from dotenv import load_dotenv
 from time import sleep
 from email.header import decode_header
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-
 from colorama import Fore, Style, init
 
 # Initialize colorama
 init(autoreset=True)
 
-# Load environment variables from .env file
-load_dotenv()
-
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 # Email Credentials
-# This dictionary stores the email accounts and their credentials
 # You can add more email accounts here by following the same format
 # Replace the example credentials with your actual email credentials
-# Get email user and password from environment variables
-# You can set these in a .env file or directly in your system environment variables
 
-EMAIL_ACCOUNTS = {
+EMAIL_ACCOUNTS = { # directly added to the dict.
     '1': {
-        'user': os.getenv('EMAIL_USER_Ranger'),
-        'pass': os.getenv('EMAIL_PASS_Ranger')
+        'user': 'rangersmyth.74@gmail.com',   # Example - REPLACE WITH YOUR ACTUAL CREDENTIALS
+        'pass': 'rhvyqknrnatoxetv'      # Example - REPLACE WITH YOUR ACTUAL PASSWORD
     },
     '2': {
-        'user': os.getenv('EMAIL_USER_David'),
-        'pass': os.getenv('EMAIL_PASS_David')
+        'user': 'david.keane.1974@gmail.com', # Example - REPLACE WITH YOUR ACTUAL CREDENTIALS
+        'pass': 'vpalbyubhfheoesl'      # Example - REPLACE WITH YOUR ACTUAL PASSWORD
     },
     '3': {
-        'user': os.getenv('EMAIL_USER_Proxy'),
-        'pass': os.getenv('EMAIL_PASS_Proxy')
+        'user': 'proxybusterburg@gmail.com', # Example - REPLACE WITH YOUR ACTUAL CREDENTIALS
+        'pass': 'hgotecaahndqinnf'      # Example - REPLACE WITH YOUR ACTUAL PASSWORD
     }
 }
 
@@ -156,10 +163,9 @@ def print_ascii_gmail2():
 """)
     pass  # This line is crucial to actually display the ascii art
 
-
 # This is the banner for the bot
 def banner():
-    Banner = """
+    Banner = r"""
             ____  ___    _   __________________       _____ __  _____  __________  __
            / __ \/   |  / | / / ____/ ____/ __ \     / ___//  |/  /\ \/ /_  __/ / / /
           / /_/ / /| | /  |/ / / __/ __/ / /_/ /_____\__ \/ /|_/ /  \  / / / / /_/ /
@@ -212,8 +218,7 @@ def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 # Print welcome banner
-print("\nMade By David\nVersion 1.0.0\n")
-print("Welcome to the Gmail Email Client!\n")
+# Welcome message only shown in interactive mode (handled in main)
 
 def select_account():
     print_ascii_gmail2()
@@ -225,7 +230,7 @@ def select_account():
     while True:
         choice = input(Fore.YELLOW + "Enter your choice: " + Style.RESET_ALL)
         if choice == '0':
-            print(Fore.GREEN + "\nExiting the program. Goodbye!\n" + Style.RESET_ALL)
+            print(Fore.BLUE + "\nExiting. See you next time!\n" + Style.RESET_ALL)
             sys.exit()
         elif choice in EMAIL_ACCOUNTS:
             global EMAIL_USER, EMAIL_PASS
@@ -253,6 +258,9 @@ def fetch_emails(unseen=True):
             mail.select("inbox")
 
             status, messages = mail.search(None, 'UNSEEN' if unseen else 'ALL')
+            if not messages or not messages[0]:
+                print("No emails found.")
+                return
             email_ids = messages[0].split()
 
             if not email_ids:
@@ -335,8 +343,10 @@ def display_email_summaries(email_summary):
                 break
             else:
                 print(Fore.RED + "Invalid choice. Please enter a valid email number." + Style.RESET_ALL)
+                bunny()
         except ValueError:
             print(Fore.RED + "Invalid input. Please enter a number or type 'back'." + Style.RESET_ALL)
+            bunny()
 
 def display_full_email(email_details):
     clear_screen()
@@ -386,8 +396,203 @@ def send_email(to_email=None, subject=None, message_body=None):
             server.login(EMAIL_USER, EMAIL_PASS)
             server.send_message(msg)
         print(Fore.GREEN + "Email sent successfully." + Style.RESET_ALL)
+        bunny()
     except smtplib.SMTPException as e:
         print(Fore.RED + f"Failed to send email: {e}" + Style.RESET_ALL)
+        bunny()
+
+def test_connection():
+    """Test connection to Gmail servers."""
+    print(Fore.CYAN + "\n===== CONNECTION TEST =====" + Style.RESET_ALL)
+
+    # Test IMAP
+    print(f"\n{Fore.YELLOW}Testing IMAP (imap.gmail.com:993)...{Style.RESET_ALL}")
+    try:
+        with imaplib.IMAP4_SSL("imap.gmail.com", 993) as mail:
+            print(f"{Fore.GREEN}✓ IMAP connection successful{Style.RESET_ALL}")
+    except Exception as e:
+        print(f"{Fore.RED}✗ IMAP connection failed: {e}{Style.RESET_ALL}")
+
+    # Test SMTP
+    print(f"\n{Fore.YELLOW}Testing SMTP (smtp.gmail.com:587)...{Style.RESET_ALL}")
+    try:
+        with smtplib.SMTP('smtp.gmail.com', 587) as server:
+            server.starttls()
+            print(f"{Fore.GREEN}✓ SMTP connection successful{Style.RESET_ALL}")
+    except Exception as e:
+        print(f"{Fore.RED}✗ SMTP connection failed: {e}{Style.RESET_ALL}")
+
+    # Test DNS
+    print(f"\n{Fore.YELLOW}Testing DNS resolution...{Style.RESET_ALL}")
+    try:
+        ip = socket.gethostbyname('gmail.com')
+        print(f"{Fore.GREEN}✓ DNS resolution successful (gmail.com -> {ip}){Style.RESET_ALL}")
+    except Exception as e:
+        print(f"{Fore.RED}✗ DNS resolution failed: {e}{Style.RESET_ALL}")
+
+    print()
+
+def list_accounts():
+    """List all configured email accounts."""
+    print(Fore.CYAN + "\n===== CONFIGURED ACCOUNTS =====" + Style.RESET_ALL)
+    for key, account in EMAIL_ACCOUNTS.items():
+        user = account['user']
+        # Mask the password
+        masked_pass = account['pass'][:4] + '*' * 8 + account['pass'][-4:]
+        print(f"{Fore.GREEN}{key}. {user}{Style.RESET_ALL}")
+        print(f"   App Password: {masked_pass}")
+    print()
+
+def quick_check(account_num, unseen_only=True):
+    """Quick check emails for a specific account."""
+    global EMAIL_USER, EMAIL_PASS
+
+    if account_num not in EMAIL_ACCOUNTS:
+        print(f"{Fore.RED}Invalid account number. Use --accounts to see available accounts.{Style.RESET_ALL}")
+        return
+
+    EMAIL_USER = EMAIL_ACCOUNTS[account_num]['user']
+    EMAIL_PASS = EMAIL_ACCOUNTS[account_num]['pass']
+
+    print(f"{Fore.CYAN}Checking {'new' if unseen_only else 'all'} emails for {EMAIL_USER}...{Style.RESET_ALL}\n")
+    fetch_emails(unseen=unseen_only)
+
+def quick_send(account_num, to_email, subject, body):
+    """Quick send email from CLI."""
+    global EMAIL_USER, EMAIL_PASS
+
+    if account_num not in EMAIL_ACCOUNTS:
+        print(f"{Fore.RED}Invalid account number. Use --accounts to see available accounts.{Style.RESET_ALL}")
+        return
+
+    EMAIL_USER = EMAIL_ACCOUNTS[account_num]['user']
+    EMAIL_PASS = EMAIL_ACCOUNTS[account_num]['pass']
+
+    print(f"{Fore.CYAN}Sending email from {EMAIL_USER}...{Style.RESET_ALL}\n")
+
+    msg = MIMEMultipart()
+    msg['From'] = EMAIL_USER
+    msg['To'] = to_email
+    msg['Subject'] = subject
+    msg.attach(MIMEText(body, 'plain'))
+
+    try:
+        with smtplib.SMTP('smtp.gmail.com', 587) as server:
+            server.starttls()
+            server.login(EMAIL_USER, EMAIL_PASS)
+            server.send_message(msg)
+        print(Fore.GREEN + "✓ Email sent successfully!" + Style.RESET_ALL)
+    except smtplib.SMTPException as e:
+        print(Fore.RED + f"✗ Failed to send email: {e}" + Style.RESET_ALL)
+
+def parse_args():
+    """Parse command line arguments."""
+    parser = argparse.ArgumentParser(
+        description="Gmail Email Client v3.0 - A powerful CLI email client",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+================================================================================
+                           GMAIL EMAIL CLIENT v3.0
+================================================================================
+
+QUICK START:
+  gmail                                Launch interactive menu
+  gmail --accounts                     List configured accounts
+  gmail --check 1                      Check new emails (account 1)
+  gmail --check-all 1                  Check all emails (account 1)
+  gmail --test                         Test Gmail server connection
+
+--------------------------------------------------------------------------------
+ACCOUNT MANAGEMENT:
+--------------------------------------------------------------------------------
+  --accounts              List all configured Gmail accounts
+                          Shows email addresses and masked app passwords
+
+  --test                  Test connection to Gmail IMAP/SMTP servers
+                          Useful for troubleshooting connection issues
+
+--------------------------------------------------------------------------------
+CHECK EMAILS:
+--------------------------------------------------------------------------------
+  --check ACCOUNT         Check NEW (unread) emails only
+                          Example: gmail --check 1
+
+  --check-all ACCOUNT     Check ALL emails (including read)
+                          Example: gmail --check-all 2
+
+--------------------------------------------------------------------------------
+SEND EMAILS:
+--------------------------------------------------------------------------------
+  --send ACCOUNT          Send email (interactive prompts)
+                          Example: gmail --send 1
+
+  --quick-send            Send email with all parameters
+                          Example: gmail --quick-send 1 "to@email.com" "Subject" "Body"
+
+--------------------------------------------------------------------------------
+CONFIGURED ACCOUNTS:
+--------------------------------------------------------------------------------
+  1. Ranger Smyth     (rangersmyth.74@gmail.com)
+  2. David Keane      (david.keane.1974@gmail.com)
+  3. Proxy Busterburg (proxybusterburg@gmail.com)
+
+--------------------------------------------------------------------------------
+INTERACTIVE MENU (when run without arguments):
+--------------------------------------------------------------------------------
+  1. Check new emails      - Fetch only unread emails
+  2. Check older emails    - Fetch all emails
+  3. Send an email         - Compose and send email
+  4. Back to accounts      - Switch to different account
+  0. Exit                  - Exit the program
+
+--------------------------------------------------------------------------------
+SETUP INSTRUCTIONS:
+--------------------------------------------------------------------------------
+  1. Go to: https://myaccount.google.com/apppasswords
+  2. Generate an App Password for "Mail"
+  3. Add credentials to EMAIL_ACCOUNTS in this script
+  4. Run: gmail --test (to verify connection)
+
+--------------------------------------------------------------------------------
+TIPS:
+--------------------------------------------------------------------------------
+  * Use App Passwords, NOT your regular Gmail password
+  * Run --test first to verify your connection works
+  * Use --check for quick inbox preview
+  * The script auto-installs missing packages (colorama, psutil)
+
+================================================================================
+        """
+    )
+
+    # Account & Connection
+    conn_group = parser.add_argument_group('Account & Connection')
+    conn_group.add_argument('--accounts', action='store_true',
+                           help="List all configured Gmail accounts")
+    conn_group.add_argument('--test', action='store_true',
+                           help="Test connection to Gmail servers")
+
+    # Check Emails
+    check_group = parser.add_argument_group('Check Emails')
+    check_group.add_argument('--check', metavar='ACCOUNT',
+                            help="Check NEW emails for account (1, 2, or 3)")
+    check_group.add_argument('--check-all', metavar='ACCOUNT',
+                            help="Check ALL emails for account")
+
+    # Send Emails
+    send_group = parser.add_argument_group('Send Emails')
+    send_group.add_argument('--send', metavar='ACCOUNT',
+                           help="Send email interactively")
+    send_group.add_argument('--quick-send', nargs=4,
+                           metavar=('ACCOUNT', 'TO', 'SUBJECT', 'BODY'),
+                           help="Send email with all parameters")
+
+    # Easter Eggs
+    easter_group = parser.add_argument_group('Easter Eggs')
+    easter_group.add_argument('--bunny', action='store_true',
+                             help="🐰 A surprise awaits...")
+
+    return parser.parse_args()
 
 def main():
     try:
@@ -398,7 +603,8 @@ def main():
                 show_menu()
                 choice = input(Fore.YELLOW + "Enter your choice: " + Style.RESET_ALL)
                 if choice == '0':
-                    print(Fore.GREEN + "\nExiting the program. Goodbye!\n" + Style.RESET_ALL)
+                    print(Fore.BLUE + "\nExiting. See you next time!\n" + Style.RESET_ALL)
+                    bunny()
                     sys.exit()
                 elif choice == '1':
                     fetch_emails(unseen=True)
@@ -410,13 +616,68 @@ def main():
                     break
                 else:
                     print(Fore.RED + "\nInvalid choice. Please enter a number from the menu.\n" + Style.RESET_ALL)
+                    bunny()
     except KeyboardInterrupt:
         print(Fore.YELLOW + "\n\nProgram interrupted. Exiting gracefully." + Style.RESET_ALL)
+        bunny()
     except Exception as e:
         logging.error(f"An unexpected error occurred: {str(e)}")
         print(Fore.RED + f"\nAn unexpected error occurred. Please check the log file for details." + Style.RESET_ALL)
+        bunny()
+
+def rainbow_bunny():
+    """Display a rainbow-colored bunny!"""
+    colors = [Fore.RED, Fore.YELLOW, Fore.GREEN, Fore.CYAN, Fore.BLUE, Fore.MAGENTA]
+    bunny_art = r"""
+           /\ /|
+          |||| |
+           \ | \
+       _ _ /  ()()
+     /    \   =>*<=
+   /|      \   /
+   \|     /__| |
+     \_____) \__)
+    """
+    print()
+    lines = bunny_art.split('\n')
+    for i, line in enumerate(lines):
+        color = colors[i % len(colors)]
+        print(f"{color}{line}{Style.RESET_ALL}")
+
+    print(f"\n{Fore.MAGENTA}🐰 Bunny says: 'You've got mail... probably!' 🐰{Style.RESET_ALL}")
+    print(f"{Fore.CYAN}   Easter egg found! You're awesome!{Style.RESET_ALL}\n")
+
+def cli_main():
+    """Main entry point with CLI argument handling."""
+    args = parse_args()
+
+    # Handle CLI arguments
+    if args.bunny:
+        rainbow_bunny()
+    elif args.accounts:
+        list_accounts()
+    elif args.test:
+        test_connection()
+    elif args.check:
+        quick_check(args.check, unseen_only=True)
+    elif args.check_all:
+        quick_check(args.check_all, unseen_only=False)
+    elif args.send:
+        global EMAIL_USER, EMAIL_PASS
+        if args.send in EMAIL_ACCOUNTS:
+            EMAIL_USER = EMAIL_ACCOUNTS[args.send]['user']
+            EMAIL_PASS = EMAIL_ACCOUNTS[args.send]['pass']
+            print(f"{Fore.CYAN}Sending from: {EMAIL_USER}{Style.RESET_ALL}\n")
+            send_email()
+        else:
+            print(f"{Fore.RED}Invalid account. Use --accounts to see available accounts.{Style.RESET_ALL}")
+    elif args.quick_send:
+        account, to_email, subject, body = args.quick_send
+        quick_send(account, to_email, subject, body)
+    else:
+        # No CLI args - launch interactive menu
+        main()
 
 if __name__ == "__main__":
-    main()
-    clear_screen()
-    print_ascii_gmail2()
+    cli_main()
+    

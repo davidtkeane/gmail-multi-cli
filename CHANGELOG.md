@@ -2,6 +2,33 @@
 
 - Any planned features or known issues can be listed here.
 
+## [3.0.0] - 2026-01-02
+
+### Added
+- **Auto-install missing packages** - Script automatically detects and offers to install missing dependencies (colorama, psutil)
+- **CLI Arguments** - Full command-line interface support:
+  - `--accounts` - List all configured email accounts
+  - `--test` - Test connection to all accounts
+  - `--check` - Quick check for new emails (default account)
+  - `--check-all` - Check all accounts for new emails
+  - `--send` - Send email from CLI (interactive)
+  - `--quick-send` - Send email with arguments: `--quick-send recipient subject "body"`
+  - `--help` - Comprehensive help with examples
+  - `--bunny` - Easter egg!
+- **Comprehensive --help documentation** - Full usage examples and argument descriptions
+- **Rainbow bunny easter egg** - Try `gmail --bunny`
+- **psutil dependency** - For system monitoring features
+
+### Changed
+- **Version bump to 3.0.0** - Major feature release
+- **Improved header documentation** - Clearer setup instructions
+- **Portable shebang** - Changed from hardcoded path to `#!/usr/bin/env python3`
+- **Restructured code** - Better organization with auto-install at top
+
+### Fixed
+- **Shebang portability** - No longer requires specific Python path
+- **Missing package errors** - Auto-install prevents import failures
+
 ## [2.0.1] - 2024-12-31
 
 ### Added
@@ -84,8 +111,9 @@
 - Command-line interface for interacting with Gmail.
 
 
-[Unreleased]: https://github.com/yourusername/gmail-multi-cli/compare/v2.0.1...HEAD
-[2.0.1]: https://github.com/yourusername/gmail-multi-cli/compare/v2.0.0...v2.0.1
-[2.0.0]: https://github.com/yourusername/gmail-multi-cli/compare/v1.1.0...v2.0.0
-[1.1.0]: https://github.com/yourusername/gmail-multi-cli/compare/v1.0.0...v1.1.0
-[1.0.0]: https://github.com/yourusername/gmail-multi-cli/releases/tag/v1.0.0
+[Unreleased]: https://github.com/davidtkeane/gmail-multi-cli/compare/v3.0.0...HEAD
+[3.0.0]: https://github.com/davidtkeane/gmail-multi-cli/compare/v2.0.1...v3.0.0
+[2.0.1]: https://github.com/davidtkeane/gmail-multi-cli/compare/v2.0.0...v2.0.1
+[2.0.0]: https://github.com/davidtkeane/gmail-multi-cli/compare/v1.1.0...v2.0.0
+[1.1.0]: https://github.com/davidtkeane/gmail-multi-cli/compare/v1.0.0...v1.1.0
+[1.0.0]: https://github.com/davidtkeane/gmail-multi-cli/releases/tag/v1.0.0
